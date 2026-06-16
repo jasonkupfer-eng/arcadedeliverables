@@ -77,17 +77,17 @@ if (canvas) {
         // 1. Determine "Glitch Spike" (Violent occasional flickering)
         const isGlitchSpike = Math.random() < 0.08; 
         
-        // 2. Global screen tracking drift
-        const globalDrift = Math.random() < 0.1 ? (Math.random() * 30 - 15) : 0;
+        // 2. Global screen tracking drift (Toned down)
+        const globalDrift = Math.random() < 0.05 ? (Math.random() * 10 - 5) : 0;
 
         for (let y = 0; y < rows; y++) {
             
-            // Aggressive Horizontal Tearing
+            // Subdued Horizontal Tearing
             let rowOffset = globalDrift;
             if (isGlitchSpike && Math.random() < 0.2) {
-                rowOffset += (Math.random() * 100 - 50); 
+                rowOffset += (Math.random() * 30 - 15); 
             } else if (Math.random() < 0.05) {
-                rowOffset += (Math.random() * 20 - 10);
+                rowOffset += (Math.random() * 10 - 5);
             }
 
             const scrambleRow = Math.random() < 0.1;
