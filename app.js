@@ -32,23 +32,28 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ========================================================
-// BACKGROUND CRT GLITCH TERMINAL ENGINE
+// BACKGROUND CRT GLITCH TERMINAL ENGINE (HEAVY RETRO)
 // ========================================================
 const canvas = document.getElementById('glitchCanvas');
 if (canvas) {
     const ctx = canvas.getContext('2d');
     let cols, rows;
-    const fontSize = 18;
-    // Mix of numbers, letters, and terminal symbols
-    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_-$#@!<>[]';
+    
+    // Using a chunkier grid system
+    const fontSize = 14; 
+    const cellWidth = 16;
+    const cellHeight = 20;
+
+    // A mix of Hex codes and solid corrupted memory blocks
+    const chars = '0123456789ABCDEF█▓▒░▄▀-_+=';
     const grid = [];
 
     // Sync canvas size to the window
     function resize() {
         canvas.width = canvas.offsetWidth;
         canvas.height = canvas.offsetHeight;
-        cols = Math.floor(canvas.width / fontSize);
-        rows = Math.floor(canvas.height / fontSize);
+        cols = Math.floor(canvas.width / cellWidth);
+        rows = Math.floor(canvas.height / cellHeight);
         initGrid();
     }
     window.addEventListener('resize', resize);
@@ -60,13 +65,12 @@ if (canvas) {
             const row = [];
             let inBlock = false;
             for (let x = 0; x < cols; x++) {
-                // Randomly start and stop "blocks" of data
-                if (Math.random() < 0.15) inBlock = !inBlock; 
-                if (inBlock && Math.random() > 0.2) {
-                    row.push({ char: chars[Math.floor(Math.random() * chars.length)], active: true });
-                } else {
-                    row.push({ char: '', active: false });
-                }
+                // Creates dense clusters of text with empty spaces between them
+                if (Math.random() < 0.2) inBlock = !inBlock; 
+                row.push({
+                    char: inBlock ? chars[Math.floor(Math.random() * chars.length)] : '',
+                    active: inBlock && Math.random() > 0.3
+                });
             }
             grid.push(row);
         }
@@ -77,47 +81,75 @@ if (canvas) {
 
     // The Render Loop
     function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.font = `bold ${fontSize}px "VT323", monospace`;
+        // Phosphor decay: Leaves a slight trail instead of instantly clearing the screen
+        ctx.globalAlpha = 0.8;
+        ctx.fillStyle = '#020604';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Switch to the chunky arcade font
+        ctx.font = `bold ${fontSize}px "Press Start 2P", monospace`;
         ctx.textBaseline = 'top';
 
+        // Global CRT tracking drift (the whole screen slightly shakes occasionally)
+        const globalDrift = Math.random() < 0.05 ? (Math.random() * 16 - 8) : 0;
+
         for (let y = 0; y < rows; y++) {
+            
+            // Horizontal Tearing: Random rows shift aggressively left or right
+            let rowOffset = globalDrift;
+            if (Math.random() < 0.08) {
+                rowOffset += (Math.random() * 40 - 20); 
+            }
+
+            // Chance to instantly scramble an entire row's characters
+            const scrambleRow = Math.random() < 0.05;
+
             for (let x = 0; x < cols; x++) {
                 if (grid[y][x].active) {
-                    // Glitch Effect 1: Randomly scramble the character
-                    if (Math.random() < 0.05) {
+                    
+                    // Randomly flip characters to keep the screen alive
+                    if (scrambleRow || Math.random() < 0.02) {
                         grid[y][x].char = chars[Math.floor(Math.random() * chars.length)];
                     }
-                    
-                    // Glitch Effect 2: Flicker the opacity
-                    ctx.globalAlpha = Math.random() > 0.1 ? 0.3 : 0.6;
-                    ctx.fillStyle = '#00f0ff'; // Matches your var(--neon-cyan)
-                    
-                    // Glitch Effect 3: Occasional bright white sector failure
-                    if (Math.random() < 0.005) {
-                        ctx.fillStyle = '#ffffff';
-                        ctx.globalAlpha = 0.8;
+
+                    const char = grid[y][x].char;
+                    const drawX = x * cellWidth + rowOffset;
+                    const drawY = y * cellHeight;
+
+                    // Phosphor Bloom (Glow Effect)
+                    ctx.shadowBlur = 8;
+                    ctx.shadowColor = '#00f0ff';
+
+                    // Chromatic Aberration (RGB shift / Color Separation glitch)
+                    if (Math.random() < 0.02) {
+                        // Red ghost
+                        ctx.fillStyle = 'rgba(255, 0, 85, 0.9)';
+                        ctx.shadowColor = 'rgba(255, 0, 85, 1)';
+                        ctx.fillText(char, drawX - 4, drawY);
+                        
+                        // Blue ghost
+                        ctx.fillStyle = 'rgba(0, 240, 255, 0.9)';
+                        ctx.shadowColor = 'rgba(0, 240, 255, 1)';
+                        ctx.fillText(char, drawX + 4, drawY);
+                    } else {
+                        // Standard Cyan terminal block
+                        ctx.globalAlpha = Math.random() > 0.1 ? 0.85 : 0.3;
+                        ctx.fillStyle = '#00f0ff';
+                        ctx.fillText(char, drawX, drawY);
                     }
-                    
-                    ctx.fillText(grid[y][x].char, x * fontSize, y * fontSize);
                 }
             }
         }
         
-        // Glitch Effect 4: Periodically overwrite an entire row to simulate tracking errors
-        if (Math.random() < 0.15) {
-            const y = Math.floor(Math.random() * rows);
-            let inBlock = false;
-            for (let x = 0; x < cols; x++) {
-                if (Math.random() < 0.15) inBlock = !inBlock;
-                grid[y][x] = { 
-                    char: inBlock && Math.random() > 0.2 ? chars[Math.floor(Math.random() * chars.length)] : '', 
-                    active: inBlock && Math.random() > 0.2 
-                };
-            }
+        // Draw aggressive, thick scanlines cutting through the text
+        ctx.shadowBlur = 0;
+        ctx.globalAlpha = 0.5;
+        ctx.fillStyle = '#000000';
+        for (let i = 0; i < canvas.height; i += 4) {
+            ctx.fillRect(0, i, canvas.width, 2);
         }
     }
     
-    // Run the loop at 15 FPS for that chunky, retro hardware feel
-    setInterval(draw, 65); 
+    // Run the loop slower (80ms = ~12 FPS) for a sluggish, old-hardware feel
+    setInterval(draw, 80); 
 }
