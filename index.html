@@ -14,11 +14,14 @@
 
 <div class="screen-wrapper">
     <div class="arcade-cabinet">
-        <div class="crt-screen">
+<div class="crt-screen">
             
             <div class="static-overlay"></div>
+            
+            <canvas id="glitchCanvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;"></canvas>
 
             <div class="ui-layer hud">
+
                 <div>SYSTEM: <span class="txt-cyan">SECURE COMM LINK</span></div>
                 <div>STATUS: <span class="txt-green" style="color: var(--neon-green)">CLEARED</span></div>
             </div>
