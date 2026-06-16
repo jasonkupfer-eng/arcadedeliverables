@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Accomplished | The Subtitle Arcade</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="screen-wrapper">
+    <div class="arcade-cabinet">
+        <div class="crt-screen">
+            
+            <div class="static-overlay"></div>
+
+            <div class="ui-layer hud">
+                <div>SYSTEM: <span class="txt-cyan">SECURE COMM LINK</span></div>
+                <div>STATUS: <span class="txt-green" style="color: var(--neon-green)">CLEARED</span></div>
+            </div>
+
+            <div class="menu-focal-zone">
+                <div class="ui-layer title-container">
+                    <div class="arcade-tag flash-title" style="color: var(--neon-green);">MISSION ACCOMPLISHED</div>
+                    <h1 class="main-title" style="font-size: 36px; margin-top: 20px;">TARGET SECURED:</h1>
+                    <div class="bot-title" id="missionNameDisplay" style="color: var(--neon-cyan);">[CLASSIFIED_DATA]</div>
+                </div>
+
+                <div class="ui-layer menu-container" style="text-align: center; max-width: 500px;">
+                    <div class="slogan-text" style="font-size: 24px; margin-bottom: 30px; line-height: 1.4;">
+                        The Caption-Bots have been neutralized. Your 100% human-crafted subtitle file is ready for extraction.
+                    </div>
+                    
+                    <a href="#" id="downloadBtn" class="override-btn-green" style="display: block; text-decoration: none; text-align: center; font-family: 'Press Start 2P', monospace; font-size: 18px !important; padding: 20px !important; animation: neonGlowPulse 2s infinite alternate;">
+                        ↓ EXTRACT PAYLOAD ↓
+                    </a>
+                </div>
+            </div>
+
+            <div class="ui-layer screen-footer">
+                <div class="system-status">TRANSMISSION ORIGIN: EARTH</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
