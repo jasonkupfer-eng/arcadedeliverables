@@ -553,4 +553,17 @@ html, body {
 @keyframes staticDissolve {
     0% { opacity: 0.65; }
     100% { opacity: 0; visibility: hidden; }
+
+    /* 9. EXTRACTION TERMINAL: CLASSIFIED DATA OVERFLOW FIX */
+    /* Forces long unbroken strings (like titles with underscores) to wrap safely inside the glass */
+    .main-title, 
+    .config-main-title,
+    .bot-title { 
+        overflow-wrap: anywhere !important; 
+        word-break: break-word !important; 
+        white-space: normal !important; 
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
 }
