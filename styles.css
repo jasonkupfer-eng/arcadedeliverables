@@ -569,18 +569,17 @@ html, body {
     .bot-title, 
     .arcade-tag,
     h1, h2 {
-        word-break: normal !important;       /* Revokes the meat cleaver */
-        overflow-wrap: anywhere !important;  /* Only slices if the word is wider than the screen */
-        
+        word-break: normal !important;       
+        overflow-wrap: anywhere !important;  
         white-space: normal !important;
         max-width: 100vw !important; 
         padding-left: 10px !important;
         padding-right: 10px !important;
         box-sizing: border-box !important;
         
-        /* Dynamically scales the massive 54px desktop text down to fit mobile screens */
-        font-size: clamp(24px, 8vw, 36px) !important; 
-        line-height: 1.2 !important;
+        /* Aggressively scales down the chunky 8-bit font so 12-letter words fit */
+        font-size: clamp(16px, 5.5vw, 24px) !important; 
+        line-height: 1.4 !important;
     }
 
     /* 3. SENTENCE PROTECTION */
