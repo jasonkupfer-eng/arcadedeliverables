@@ -553,8 +553,10 @@ html, body {
 @keyframes staticDissolve {
     0% { opacity: 0.65; }
     100% { opacity: 0; visibility: hidden; }
+} /* <--- This closing bracket was missing before, trapping the code below it! */
 
-/* EXTRACTION TERMINAL: THE "NO MERCY" TITLE BREAKER */
+/* EXTRACTION TERMINAL: THE "NO MERCY" TITLE BREAKER (Mobile Only) */
+@media (max-width: 768px) {
     h1, h2, h3, 
     .crt-screen span, 
     [class*="title"] {
