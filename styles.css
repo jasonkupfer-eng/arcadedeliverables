@@ -566,4 +566,23 @@ html, body {
         padding-right: 10px !important;
     }
 
+/* EXTRACTION TERMINAL: CLASSIFIED DATA OVERFLOW FIX */
+    /* Forces flex containers to respect the screen edge and break long strings */
+    .config-card, 
+    .config-card div, 
+    .config-card span, 
+    .config-card p, 
+    .config-card h1, 
+    .config-card h2, 
+    .config-card h3 {
+        overflow-wrap: break-word !important;
+        word-wrap: break-word !important;
+        word-break: break-word !important;
+        white-space: normal !important;
+        
+        /* The Magic Flexbox Fixes */
+        min-width: 0 !important; 
+        max-width: 100% !important; 
+    }
+
 }
