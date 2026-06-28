@@ -593,6 +593,7 @@ html, body {
         word-break: normal !important;
         overflow-wrap: break-word !important;
     }
+} /* <--- THIS WAS THE MISSING BRACKET THAT CLOSES THE MOBILE QUERY */
     
 /* ========================================================
    DELIVERABLES PAGE: HELP SYSTEM & SLIDE DRAWER 
