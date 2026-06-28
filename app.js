@@ -158,45 +158,343 @@ if (canvas) {
 }
 
 // ========================================================
-// HELP SYSTEM & DRAWER LOGIC
+// DELIVERABLES PAGE: DEPLOYMENT DRAWER & HELP SYSTEM
 // ========================================================
 document.addEventListener("DOMContentLoaded", () => {
-    const helpTrigger = document.getElementById('helpSystemTrigger');
-    const helpSmoke = document.getElementById('helpSmokeBurst');
-    const helpBubble = document.getElementById('helpSpeechBubble');
     
-    const drawer = document.getElementById('deploymentDrawer');
-    const overlay = document.getElementById('drawerOverlay');
-    const closeBtn = document.getElementById('closeDrawerBtn');
+    // --- 1. THE HELP SYSTEM AUTOMATION ---
+    const helpWrapper = document.getElementById('deliverablesHelpWrapper');
+    const helpIcon = document.getElementById('deliverablesHelpIcon');
+    const smokeBurst = document.getElementById('deliverablesSmokeBurst');
+    const tooltip = document.getElementById('deliverablesTooltip');
+    
+    const drawer = document.getElementById('deliverablesDeploymentDrawer');
+    const closeBtn = document.getElementById('closeDeliverablesDrawerBtn');
 
-    if(helpTrigger) {
-        // Step 1: Wait 2.5 seconds after page load, then show the ? and trigger smoke
+    if (helpWrapper) {
+        // Step 1: Wait 2.5 seconds, then trigger smoke and pop the icon
         setTimeout(() => {
-            helpTrigger.classList.add('visible');
-            helpSmoke.classList.add('fire-smoke-anim');
+            if(smokeBurst) smokeBurst.classList.add('active');
             
-            // Step 2: Wait 1.5 seconds after the smoke clears, then pop the text bubble
+            // Wait 400ms for smoke to billow, then pop icon
             setTimeout(() => {
-                helpBubble.classList.add('show-bubble');
-            }, 1500);
+                if(helpIcon) helpIcon.classList.add('active');
+            }, 400);
+
+            // Step 2: Wait an additional 1.5 seconds, then pop the speech bubble
+            setTimeout(() => {
+                if(tooltip) tooltip.classList.add('visible');
+            }, 1900);
 
         }, 2500);
 
-        // Drawer Open Function
-        const openDrawer = () => {
-            drawer.classList.add('drawer-open');
-            overlay.classList.add('drawer-open');
+        // Open Drawer Function
+        const openDrawer = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if(drawer) drawer.classList.add('open');
+            if(tooltip) tooltip.classList.remove('visible'); // Hide bubble when opened
         };
 
-        // Drawer Close Function
-        const closeDrawer = () => {
-            drawer.classList.remove('drawer-open');
-            overlay.classList.remove('drawer-open');
+        // Close Drawer Function
+        const closeDrawer = (e) => {
+            if(e) e.preventDefault();
+            if(drawer) drawer.classList.remove('open');
         };
 
-        // Click Events
-        helpTrigger.addEventListener('click', openDrawer);
-        closeBtn.addEventListener('click', closeDrawer);
-        overlay.addEventListener('click', closeDrawer); // Clicking the dark background closes it
+        // Click Listeners
+        if(helpWrapper) helpWrapper.addEventListener('click', openDrawer);
+        if(closeBtn) closeBtn.addEventListener('click', closeDrawer);
+
+        // Click outside drawer to close
+        document.addEventListener('click', (e) => {
+            if (drawer && drawer.classList.contains('open')) {
+                if (!drawer.contains(e.target) && !helpWrapper.contains(e.target)) {
+                    closeDrawer();
+                }
+            }
+        });
     }
+
+    // --- 2. DEPLOYMENT CONSOLE LOGIC ---
+    
+    const uplinkData = {
+        youtube: {
+            logo: " ▄████▄ \n███▶███\n ▀████▀ ",
+            color: "#ff0000",
+            text: "TARGET: YOUTUBE\nFORMAT REQ: .SRT OR .VTT\n\n[ PROTOCOL ]\n1. YouTube Studio -> Subtitles.\n2. Click video -> 'Add Language'.\n3. Select 'Upload File' -> 'With timing'.\n4. Upload payload."
+        },
+        facebook: {
+            logo: "▄████\n██▀▀▀\n████ \n██   ",
+            color: "#00f0ff",
+            text: "TARGET: META BUSINESS SUITE\nFORMAT REQ: FACEBOOK SRT\n\n[ PROTOCOL ]\n1. Meta Business Suite -> Upload Video.\n2. Expand 'Show More' -> Toggle 'Captions & Subtitles'.\n3. Upload payload.\n\n[ CRITICAL WARNING ]\nYour file MUST be named 'filename.en_US.srt'. If .en_US is missing, Meta will instantly reject."
+        },
+        instagram: {
+            logo: " ▄████▄ \n██▄██▄██\n██ ██ ██\n▀██████▀",
+            color: "#ff007f",
+            text: "TARGET: INSTAGRAM REELS\nFORMAT REQ: .SRT OR BURNED-IN\n\n[ PROTOCOL ]\n1. Upload Reel -> 'Advanced Settings'.\n2. 'Accessibility' -> 'Upload Captions'.\n3. Attach .SRT payload."
+        },
+        tiktok: {
+            logo: "   ▄█ \n   ██ \n ▄███ \n██▀██ \n▀███▀ ",
+            color: "#ffffff",
+            text: "TARGET: TIKTOK\nFORMAT REQ: .SRT OR BURNED-IN\n\n[ PROTOCOL ]\n1. Access Desktop Web Portal.\n2. Initiate upload -> Locate 'Captions'.\n3. Select .SRT payload."
+        },
+        linkedin: {
+            logo: "▄█ ▄██▄\n▀▀ ██ ██\n██ ██ ██\n██ ██ ██",
+            color: "#00f0ff",
+            text: "TARGET: LINKEDIN B2B NETWORK\nFORMAT REQ: .SRT\n\n[ PROTOCOL ]\n1. Initiate video post -> Click 'Edit'.\n2. Click 'Select Caption'.\n3. Attach .SRT file."
+        },
+        twitter: {
+            logo: "█   █\n █ █ \n  █  \n █ █ \n█   █",
+            color: "#ffffff",
+            text: "TARGET: X (TWITTER) MEDIA STUDIO\nFORMAT REQ: .SRT\n\n[ PROTOCOL ]\n1. Access X Media Studio.\n2. Upload video -> Click settings.\n3. 'Subtitles' tab -> Select language -> Upload .SRT."
+        },
+        netflix: {
+            logo: "█▄  █\n██▄ █\n█ ▀██\n█  ▀█",
+            color: "#ff0000",
+            text: "TARGET: NETFLIX BACKLOT\nFORMAT REQ: TTML\n\n[ PROTOCOL ]\n1. Access Netflix Backlot (Partner Clearance Required).\n2. Upload TTML payload to Source Request."
+        },
+        amazon: {
+            logo: "<span style='color:#ff9900'>╰━━━━━➤</span>",
+            color: "#ff9900",
+            text: "TARGET: AMAZON PRIME VIDEO DIRECT\nFORMAT REQ: TTML OR SRT\n\n[ PROTOCOL ]\n1. Prime Video Direct portal -> Video Assets.\n2. 'Captions' section -> Select language -> Upload payload."
+        },
+        apple: {
+            logo: "  ▄▀  \n▄████▄\n██████\n▀████▀",
+            color: "#a0a0a0",
+            text: "TARGET: APPLE TV / iTUNES CONNECT\nFORMAT REQ: ITT\n\n[ PROTOCOL ]\n1. Prepare delivery via Apple Transporter/Compressor.\n2. Attach .iTT payload to video asset package."
+        },
+        disney: {
+            logo: "████▄ \n█   ██\n█   ██\n████▀ ",
+            color: "#0000cc",
+            text: "TARGET: DISNEY+ SUPPLY CHAIN\nFORMAT REQ: TTML\n\n[ PROTOCOL ]\n1. Access Disney Media Distribution portal.\n2. Route TTML via Aspera or native UI."
+        },
+        max: {
+            logo: "█▄█▄█ ▄▀▄ ▀▄▀\n█ █ █ █▀█ ▄▀▄",
+            color: "#b000ff",
+            text: "TARGET: WARNER BROS DISCOVERY (MAX)\nFORMAT REQ: TTML\n\n[ PROTOCOL ]\n1. Package payload via WBD technical delivery specs.\n2. Ensure SMPTE timecode alignment."
+        },
+        hulu: {
+            logo: "█  █\n████\n█  █",
+            color: "#39ff14",
+            text: "TARGET: HULU AD-SUPPORTED & PREMIUM\nFORMAT REQ: TTML\n\n[ PROTOCOL ]\n1. Upload to Hulu Partner Portal.\n2. Validate TTML payload against Hulu specs."
+        },
+        peacock: {
+            logo: "<span style='color:#00f0ff'>▄</span><span style='color:#39ff14'>▄</span><span style='color:#ffea00'>▄</span><span style='color:#ff007f'>▄</span>\n<span style='color:#00f0ff'>█</span><span style='color:#39ff14'>█</span><span style='color:#ffea00'>█</span><span style='color:#ff007f'>█</span>\n<span style='color:#ffffff'> █▀ </span>",
+            color: "#ffffff",
+            text: "TARGET: NBCUNIVERSAL PEACOCK\nFORMAT REQ: TTML\n\n[ PROTOCOL ]\n1. Route TTML payload to NBCU ingest servers."
+        },
+        paramount: {
+            logo: "  ★  \n ▄█▄ \n█████",
+            color: "#00f0ff",
+            text: "TARGET: PARAMOUNT+ GLOBAL\nFORMAT REQ: TTML\n\n[ PROTOCOL ]\n1. Transmit TTML payload via ViacomCBS portal."
+        },
+        discovery: {
+            logo: "████▄\n█   █\n████▀",
+            color: "#00f0ff",
+            text: "TARGET: DISCOVERY+ NETWORKS\nFORMAT REQ: TTML\n\n[ PROTOCOL ]\n1. Upload TTML via WBD Supply Chain."
+        },
+        amc: {
+            logo: "  ▄█▄  \n ▄█ █▄ \n █████ \n █   █ ",
+            color: "#ffea00",
+            text: "TARGET: AMC+ NETWORKS\nFORMAT REQ: TTML\n\n[ PROTOCOL ]\n1. Ingest via AMC Digital Delivery."
+        },
+        starz: {
+            logo: "  ▄█▄  \n▄█████▄\n  ▀█▀  \n ▄▀ ▀▄ ",
+            color: "#ffffff",
+            text: "TARGET: LIONSGATE / STARZ\nFORMAT REQ: TTML\n\n[ PROTOCOL ]\n1. Upload TTML payload to Starz Media portal."
+        },
+        premiere: {
+            logo: "████\n█▄▄▀\n█   ",
+            color: "#b000ff",
+            text: "TARGET: ADOBE PREMIERE PRO\nFORMAT REQ: .SRT OR .MCC\n\n[ PROTOCOL ]\n1. File > Import payload.\n2. Drag to timeline above video tracks.\n3. Export -> Captions tab -> 'Create Sidecar' or 'Burn In'."
+        },
+        resolve: {
+            logo: "<span style='color:#ff4d4d'> ▄██▄ </span>\n<span style='color:#ffea00'>██</span><span style='color:#39ff14'>██</span>\n<span style='color:#00f0ff'> ▀██▀ </span>",
+            color: "#ffffff",
+            text: "TARGET: DAVINCI RESOLVE\nFORMAT REQ: .SRT OR .VTT\n\n[ PROTOCOL ]\n1. Media Pool > Import > Subtitles.\n2. Drag to timeline.\n3. Deliver page -> Subtitle Settings -> Export Subtitle."
+        }
+    };
+
+    // Terminal Elements
+    const mechBtns = document.querySelectorAll('#deliverablesDeploymentDrawer .mech-btn');
+    const dosOutput = document.getElementById('dosOutput');
+    const lofiLogoDisplay = document.getElementById('lofiLogoDisplay');
+    const dosContentArea = document.querySelector('#deliverablesDeploymentDrawer .dos-inner-content');
+    
+    // Status Lights
+    const statPwr = document.getElementById('statusPwr');
+    const statLnk = document.getElementById('statusLnk');
+    const statDat = document.getElementById('statusDat');
+    const statErr = document.getElementById('statusErr');
+
+    let typeWriterInterval;
+    let bootTimeout;
+
+    function triggerBootSequence(targetId) {
+        const data = uplinkData[targetId];
+        if(!data) return;
+
+        clearInterval(typeWriterInterval);
+        clearTimeout(bootTimeout); 
+        
+        dosOutput.textContent = "";
+        if(statLnk) statLnk.classList.remove('on-green');
+        if(statDat) statDat.classList.remove('on-green');
+        
+        bootTimeout = setTimeout(() => {
+            if(statLnk) statLnk.classList.add('on-green');
+            
+            lofiLogoDisplay.innerHTML = data.logo;
+            lofiLogoDisplay.style.color = data.color;
+            lofiLogoDisplay.style.textShadow = `0 0 10px ${data.color}, 0 0 20px ${data.color}`;
+            
+            let i = 0;
+            typeWriterInterval = setInterval(() => {
+                dosOutput.textContent += data.text.charAt(i);
+                i++;
+                if(statDat) statDat.classList.toggle('on-green'); 
+                
+                dosContentArea.scrollTop = dosContentArea.scrollHeight;
+                if (i >= data.text.length) {
+                    clearInterval(typeWriterInterval);
+                    if(statDat) statDat.classList.add('on-green'); 
+                }
+            }, 10);
+        }, 300); 
+    }
+
+    mechBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            mechBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            triggerBootSequence(this.getAttribute('data-target'));
+        });
+    });
+
+    // Hardware Canvas Engines (Oscilloscope and VU Meter)
+    const oscCanvas = document.getElementById('oscCanvas');
+    const vuCanvas = document.getElementById('vuCanvas');
+    
+    if (oscCanvas && vuCanvas) {
+        const oscCtx = oscCanvas.getContext('2d');
+        const vuCtx = vuCanvas.getContext('2d');
+
+        let tele = { oscFreq: 0.05, oscAmp: 30, oscColor: '#39ff14', vuSpikeMode: false, glitchMode: false };
+        let time = 0;
+        const vuLevels = [20, 40, 30, 60, 50, 20, 10, 40];
+
+        function drawHardware() {
+            const drawerEl = document.getElementById('deliverablesDeploymentDrawer');
+            if (!drawerEl || !drawerEl.classList.contains('open')) {
+                requestAnimationFrame(drawHardware); 
+                return;
+            }
+
+            oscCtx.fillStyle = '#050a05';
+            if (tele.glitchMode && Math.random() < 0.1) oscCtx.fillStyle = '#111'; 
+            oscCtx.fillRect(0, 0, oscCanvas.width, oscCanvas.height);
+            
+            oscCtx.strokeStyle = '#112211'; oscCtx.lineWidth = 1;
+            for(let i=0; i<oscCanvas.width; i+=20) { oscCtx.beginPath(); oscCtx.moveTo(i,0); oscCtx.lineTo(i,oscCanvas.height); oscCtx.stroke(); }
+            for(let i=0; i<oscCanvas.height; i+=20) { oscCtx.beginPath(); oscCtx.moveTo(0,i); oscCtx.lineTo(oscCanvas.width,i); oscCtx.stroke(); }
+
+            oscCtx.beginPath();
+            oscCtx.strokeStyle = tele.oscColor;
+            oscCtx.lineWidth = 2;
+            oscCtx.shadowBlur = 8;
+            oscCtx.shadowColor = tele.oscColor;
+
+            let centerY = oscCanvas.height / 2;
+            for(let x=0; x<oscCanvas.width; x++) {
+                let actualFreq = tele.oscFreq;
+                if(tele.glitchMode) actualFreq += (Math.random() - 0.5) * 0.15; 
+                let y = centerY + Math.sin(x * actualFreq + time) * tele.oscAmp;
+                
+                if(tele.glitchMode) {
+                    y += (Math.random() - 0.5) * 30; 
+                    oscCtx.strokeStyle = ['#ff0000', '#00f0ff', '#39ff14', '#fff'][Math.floor(Math.random()*4)];
+                }
+                if(x===0) oscCtx.moveTo(x, y); else oscCtx.lineTo(x, y);
+            }
+            oscCtx.stroke();
+            oscCtx.shadowBlur = 0;
+
+            vuCtx.fillStyle = '#050a05';
+            vuCtx.fillRect(0, 0, vuCanvas.width, vuCanvas.height);
+            let barWidth = (vuCanvas.width / vuLevels.length) - 4;
+            
+            for(let i=0; i<vuLevels.length; i++) {
+                let target = Math.random() * 60;
+                if(tele.vuSpikeMode) target = 50 + Math.random() * 50; 
+                
+                vuLevels[i] += (target - vuLevels[i]) * 0.2;
+                let levelHeight = vuLevels[i];
+                let x = i * (barWidth + 4) + 2;
+                let y = vuCanvas.height - levelHeight;
+
+                for(let sy = vuCanvas.height; sy > y; sy -= 6) {
+                    if (sy > vuCanvas.height * 0.4) vuCtx.fillStyle = tele.oscColor; 
+                    else if (sy > vuCanvas.height * 0.15) vuCtx.fillStyle = '#ffea00'; 
+                    else vuCtx.fillStyle = '#ff0000'; 
+                    
+                    if(tele.glitchMode && Math.random() < 0.2) vuCtx.fillStyle = '#fff'; 
+                    vuCtx.fillRect(x, sy - 4, barWidth, 4);
+                }
+            }
+            time += 0.15;
+            requestAnimationFrame(drawHardware);
+        }
+        drawHardware();
+
+        // Knobs Logic
+        const hKnobs = document.querySelectorAll('#deliverablesDeploymentDrawer .analog-knob');
+        const panel = document.querySelector('#deliverablesDeploymentDrawer .heavy-machinery-panel'); 
+
+        hKnobs.forEach(knob => {
+            const dial = knob.querySelector('.knob-dial');
+            const action = knob.getAttribute('data-action');
+            let isDragging = false;
+
+            knob.addEventListener('mousedown', () => {
+                isDragging = true; document.body.style.cursor = 'grabbing';
+            });
+            window.addEventListener('mouseup', () => {
+                isDragging = false; document.body.style.cursor = '';
+            });
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                
+                const rect = dial.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                let angle = Math.atan2(e.clientY - centerY, e.clientX - centerX) * (180 / Math.PI) + 90; 
+                dial.style.transform = `rotate(${angle}deg)`;
+                
+                if (action === 'freq-up') tele.oscFreq = 0.01 + (Math.abs(angle / 360) * 0.3); 
+                if (action === 'color-shift') {
+                    const colors = ['#39ff14', '#00f0ff', '#ff007f', '#ffea00', '#ffffff'];
+                    tele.oscColor = colors[Math.floor(Math.abs(angle) / (360 / colors.length)) % colors.length];
+                }
+                if (action === 'glitch') {
+                    if (Math.abs(angle) % 45 < 8) {
+                        tele.glitchMode = true; tele.vuSpikeMode = true;
+                        if(panel) panel.classList.add('system-glitch'); 
+                        setTimeout(() => { 
+                            tele.glitchMode = false; tele.vuSpikeMode = false; 
+                            if(panel) panel.classList.remove('system-glitch');
+                        }, 200);
+                    }
+                }
+            });
+        });
+    }
+
+    // Power the machine ON when initially loaded
+    setTimeout(() => {
+        if(statPwr) statPwr.classList.add('on-green');
+        if(lofiLogoDisplay) lofiLogoDisplay.innerHTML = "<div class='orbiting-logo-container' style='position: relative; width: 60px; height: 60px; margin: 0 auto 20px auto;'><div style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 2px dashed #00f0ff; border-radius: 50%; animation: radarSpin 4s linear infinite;'></div><div style='position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #00f0ff; font-size: 24px; text-shadow: 0 0 10px #00f0ff;'>?</div></div>";
+        if(dosOutput) dosOutput.innerHTML = "AWAITING TARGET SELECTION...<br><br><span style='color: #fff;'>PLEASE SELECT A DESTINATION TO LOAD DEPLOYMENT PROTOCOLS.</span>";
+    }, 800);
 });

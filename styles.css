@@ -596,188 +596,59 @@ html, body {
 } /* <--- THIS WAS THE MISSING BRACKET THAT CLOSES THE MOBILE QUERY */
     
 /* ========================================================
-   DELIVERABLES PAGE: HELP SYSTEM & SLIDE DRAWER 
+   IN-CABINET DEPLOYMENT DRAWER & HELP SYSTEM
    ======================================================== */
 
-/* The Help Button Container */
-.deliverables-help-container {
-    position: fixed;
-    bottom: 40px;
-    right: 40px;
-    z-index: 9000;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    cursor: pointer;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.5s ease;
-}
-
-.deliverables-help-container.visible {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-/* The Pulsing Question Mark */
-.help-q-mark {
-    width: 60px;
-    height: 60px;
-    background: #000;
-    border: 3px solid var(--neon-cyan);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--neon-cyan);
-    font-family: 'Press Start 2P', monospace;
-    font-size: 32px;
-    box-shadow: 0 0 15px rgba(0, 240, 255, 0.5), inset 0 0 10px rgba(0, 240, 255, 0.5);
-    animation: qPulse 2s infinite alternate;
-    position: relative;
-    z-index: 3;
-}
-
-.deliverables-help-container:hover .help-q-mark {
-    border-color: var(--neon-pink);
-    color: var(--neon-pink);
-    box-shadow: 0 0 20px rgba(255, 0, 127, 0.8), inset 0 0 10px rgba(255, 0, 127, 0.5);
-    transform: scale(1.1);
-}
-
-@keyframes qPulse {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-8px); }
-}
-
-/* The Pixel Smoke Burst */
-.help-smoke-effect {
+.in-cabinet-drawer {
     position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 60px;
-    height: 60px;
-    background: #fff;
-    border-radius: 50%;
-    opacity: 0;
-    z-index: 2;
-    pointer-events: none;
-}
-
-.fire-smoke-anim {
-    animation: retroSmokeBurst 0.6s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
-}
-
-@keyframes retroSmokeBurst {
-    0% { opacity: 1; transform: scale(0.5); box-shadow: 0 0 0 0 #fff; }
-    50% { opacity: 0.8; transform: scale(1.5); box-shadow: -20px -20px 0 10px #aaaaaa, 20px -30px 0 5px #777777, 0px -40px 0 15px #cccccc; }
-    100% { opacity: 0; transform: scale(2.5); box-shadow: -40px -40px 0 20px #555555, 40px -60px 0 10px #333333, 0px -80px 0 30px #444444; }
-}
-
-/* The Auto-Appearing Speech Bubble */
-.help-speech-bubble {
-    background: #000;
-    border: 3px solid var(--neon-pink);
-    color: #fff;
-    font-family: 'VT323', monospace;
-    font-size: 24px;
-    line-height: 1.2;
-    padding: 16px 20px;
-    border-radius: 8px;
-    width: 280px;
-    margin-bottom: 20px;
-    margin-right: 10px;
-    box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
-    position: relative;
-    opacity: 0;
-    transform: translateY(20px) scale(0.9);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 4;
-}
-
-/* The little pointer arrow on the bubble */
-.help-speech-bubble::after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    right: 25px;
-    border-width: 15px 15px 0 0;
-    border-style: solid;
-    border-color: var(--neon-pink) transparent transparent transparent;
-}
-
-.help-speech-bubble.show-bubble {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-}
-
-/* ========================================================
-   THE SLIDE-OUT DRAWER 
-   ======================================================== */
-
-.deliverables-drawer-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(4px);
-    z-index: 9998;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
-}
-
-.deliverables-drawer-overlay.drawer-open {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.deliverables-side-drawer {
-    position: fixed;
     top: 0;
-    right: 0;
-    width: 500px;
-    max-width: 90vw; /* Prevents covering full screen on mobile */
-    height: 100vh;
-    background: #050508;
+    right: -100%;
+    width: 65%;
+    height: 100%;
+    z-index: 99999;
+    transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    
+    /* Format Database Styling */
+    background: rgba(2, 6, 4, 0.95);
     border-left: 4px solid var(--neon-cyan);
-    box-shadow: -10px 0 30px rgba(0, 240, 255, 0.2);
-    z-index: 9999;
-    transform: translateX(105%);
-    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    border-radius: 40% / 8%;
+    box-shadow: inset 0 0 100px rgba(0,0,0,1), -10px 0 50px rgba(0,0,0,0.9);
+    
     display: flex;
     flex-direction: column;
 }
 
-.deliverables-side-drawer.drawer-open {
-    transform: translateX(0);
+.in-cabinet-drawer.open {
+    right: 0;
 }
 
-.drawer-close-btn {
-    position: absolute;
-    top: 20px;
-    left: -24px;
-    width: 48px;
-    height: 48px;
-    background: #000;
-    border: 3px solid var(--neon-cyan);
-    border-radius: 50%;
-    color: var(--neon-cyan);
-    font-family: 'Press Start 2P', monospace;
-    font-size: 16px;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
-    transition: all 0.2s ease;
-}
-
-.drawer-close-btn:hover {
-    background: var(--neon-pink);
-    border-color: var(--neon-pink);
-    color: #000;
-    box-shadow: 0 0 20px var(--neon-pink);
-}
-
-.drawer-inner-content {
-    padding: 40px;
-    overflow-y: auto;
+.drawer-scroll-area {
+    width: 100%;
     height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Custom Scrollbar for Drawer */
+.drawer-scroll-area::-webkit-scrollbar { width: 14px; }
+.drawer-scroll-area::-webkit-scrollbar-track { background: rgba(0,0,0,0.5); border-left: 2px solid #333; }
+.drawer-scroll-area::-webkit-scrollbar-thumb { background: var(--neon-cyan); border-radius: 2px; border: 2px solid #111; }
+.drawer-scroll-area::-webkit-scrollbar-thumb:hover { background: var(--neon-pink); }
+
+/* Adjust Tooltip Tail to point to the right */
+#deliverablesTooltip::after {
+    left: auto;
+    right: 30px;
+}
+#deliverablesTooltip::before {
+    left: auto;
+    right: 26px;
+}
+
+/* Mobile Adjustments for Drawer */
+@media (max-width: 1300px) {
+    .in-cabinet-drawer { width: 85%; }
+}
+@media (max-width: 768px) {
+    .in-cabinet-drawer { width: 100%; border-radius: 0; }
 }

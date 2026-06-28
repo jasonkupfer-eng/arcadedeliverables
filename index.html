@@ -71,6 +71,118 @@
     <div class="help-q-mark">?</div>
 </div>
 
+<div id="deliverablesHelpWrapper" style="position: absolute; bottom: 30px; right: 30px; width: 36px; height: 36px; z-index: 9000;">
+    <div id="deliverablesSmokeBurst" class="smoke-burst"></div>
+    <div id="deliverablesHelpIcon" class="floating-help-icon">?</div>
+    
+    <div id="deliverablesTooltip" class="pro-arcade-tooltip" style="top: -120px; left: -240px; width: 260px;">
+        Great......Now how am I actually supposed to use this file?!
+    </div>
+</div>
+
+<div id="deliverablesDeploymentDrawer" class="in-cabinet-drawer">
+    <div class="drawer-scroll-area" style="padding: 20px; padding-bottom: 60px;">
+        
+        <div class="heavy-machinery-panel" style="transform: scale(0.95); transform-origin: top center;">
+            <div class="panel-header">
+                <div class="screw top-left"></div><div class="screw top-right"></div>
+                <h2>SYS.OP. TERMINAL // DEPLOYMENT UPLINK</h2>
+                <div class="warning-stripe"></div>
+                <button id="closeDeliverablesDrawerBtn" class="analog-toggle-btn">ABORT / RETURN</button>
+            </div>
+
+            <div class="machinery-grid">
+                
+                <div class="machine-module routing-module">
+                    <div class="screw top-left"></div><div class="screw top-right"></div>
+                    <div class="screw bottom-left"></div><div class="screw bottom-right"></div>
+                    <div class="module-title-plate">ROUTING MATRIX</div>
+
+                    <div class="button-bank">
+                        <h4 class="bank-label">WEB / SOCIAL</h4>
+                        <div class="mech-btn-row"><button class="mech-btn" data-target="youtube"><div class="btn-core red"></div></button> <span class="mech-label">YOUTUBE</span></div>
+                        <div class="mech-btn-row"><button class="mech-btn" data-target="facebook"><div class="btn-core blue"></div></button> <span class="mech-label">FACEBOOK</span></div>
+                        <div class="mech-btn-row"><button class="mech-btn" data-target="instagram"><div class="btn-core pink"></div></button> <span class="mech-label">INSTAGRAM</span></div>
+                        <div class="mech-btn-row"><button class="mech-btn" data-target="tiktok"><div class="btn-core white"></div></button> <span class="mech-label">TIKTOK</span></div>
+                        <div class="mech-btn-row"><button class="mech-btn" data-target="linkedin"><div class="btn-core blue"></div></button> <span class="mech-label">LINKEDIN</span></div>
+                        <div class="mech-btn-row"><button class="mech-btn" data-target="twitter"><div class="btn-core white"></div></button> <span class="mech-label">X (TWITTER)</span></div>
+                    </div>
+
+                    <div class="button-bank">
+                        <h4 class="bank-label">NLE SYSTEMS</h4>
+                        <div class="mech-btn-row"><button class="mech-btn" data-target="premiere"><div class="btn-core purple"></div></button> <span class="mech-label">PREMIERE PRO</span></div>
+                        <div class="mech-btn-row"><button class="mech-btn" data-target="resolve"><div class="btn-core orange"></div></button> <span class="mech-label">DAVINCI RES.</span></div>
+                    </div>
+                </div>
+
+                <div class="machine-module display-module">
+                    <div class="screw top-left"></div><div class="screw top-right"></div>
+                    <div class="screw bottom-left"></div><div class="screw bottom-right"></div>
+                    
+                    <div class="indicator-bar">
+                        <div class="status-light" id="statusPwr"></div><span class="light-label">PWR</span>
+                        <div class="status-light" id="statusLnk"></div><span class="light-label">LNK</span>
+                        <div class="status-light" id="statusDat"></div><span class="light-label">DAT</span>
+                        <div class="status-light" id="statusErr"></div><span class="light-label">ERR</span>
+                    </div>
+
+                    <div class="crt-bezel">
+                        <div class="crt-glass" id="mainDosScreen">
+                            <div class="crt-internal-scanline"></div>
+                            <div class="scanlines z-highest"></div>
+                            <div class="dos-inner-content">
+                                <div class="lofi-logo-container" id="lofiLogoDisplay"></div>
+                                <div class="dos-body">
+                                    <span id="dosOutput" style="white-space: pre-wrap;">INITIALIZING TELEMETRY...<br>AWAITING TARGET SELECTION.</span><span class="dos-cursor"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="machine-module overrides-module">
+                    <div class="screw top-left"></div><div class="screw top-right"></div>
+                    <div class="screw bottom-left"></div><div class="screw bottom-right"></div>
+
+                    <div class="module-title-plate">MAJOR STREAMERS</div>
+                    
+                    <div class="button-bank grid-bank">
+                        <div class="mech-btn-col"><button class="mech-btn" data-target="netflix"><div class="btn-core red"></div></button> <span class="mech-label">NFLX</span></div>
+                        <div class="mech-btn-col"><button class="mech-btn" data-target="amazon"><div class="btn-core blue"></div></button> <span class="mech-label">AMZN</span></div>
+                        <div class="mech-btn-col"><button class="mech-btn" data-target="apple"><div class="btn-core white"></div></button> <span class="mech-label">APPL</span></div>
+                        <div class="mech-btn-col"><button class="mech-btn" data-target="disney"><div class="btn-core blue"></div></button> <span class="mech-label">DISN</span></div>
+                        <div class="mech-btn-col"><button class="mech-btn" data-target="max"><div class="btn-core purple"></div></button> <span class="mech-label">MAX</span></div>
+                        <div class="mech-btn-col"><button class="mech-btn" data-target="hulu"><div class="btn-core green"></div></button> <span class="mech-label">HULU</span></div>
+                        <div class="mech-btn-col"><button class="mech-btn" data-target="peacock"><div class="btn-core yellow"></div></button> <span class="mech-label">PEAC</span></div>
+                        <div class="mech-btn-col"><button class="mech-btn" data-target="paramount"><div class="btn-core blue"></div></button> <span class="mech-label">PARA</span></div>
+                        <div class="mech-btn-col"><button class="mech-btn" data-target="discovery"><div class="btn-core blue"></div></button> <span class="mech-label">DISC</span></div>
+                        <div class="mech-btn-col"><button class="mech-btn" data-target="amc"><div class="btn-core yellow"></div></button> <span class="mech-label">AMC+</span></div>
+                        <div class="mech-btn-col"><button class="mech-btn" data-target="starz"><div class="btn-core white"></div></button> <span class="mech-label">STRZ</span></div>
+                    </div>
+
+                    <div class="module-title-plate" style="margin-top: 20px;">SIGNAL ANALYTICS</div>
+                    
+                    <div class="gauge-container">
+                        <canvas id="oscCanvas" width="220" height="90"></canvas>
+                        <div class="gauge-overlay">WAVEFORM</div>
+                    </div>
+                    <div class="gauge-container">
+                        <canvas id="vuCanvas" width="220" height="60"></canvas>
+                        <div class="gauge-overlay">TELEMETRY VU</div>
+                    </div>
+
+                    <div class="knob-rack">
+                        <div class="analog-knob" data-action="freq-up"><div class="knob-dial"><div class="knob-marker"></div></div><span class="knob-lbl">FREQ</span></div>
+                        <div class="analog-knob" data-action="color-shift"><div class="knob-dial"><div class="knob-marker"></div></div><span class="knob-lbl">HUE</span></div>
+                        <div class="analog-knob" data-action="glitch"><div class="knob-dial"><div class="knob-marker"></div></div><span class="knob-lbl">SYNC</span></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </div>
+</div>
+
 <script src="app.js"></script>
 </body>
 </html>
