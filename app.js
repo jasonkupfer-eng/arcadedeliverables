@@ -156,3 +156,47 @@ if (canvas) {
     // FPS Set to 75ms for that heavy, lagging arcade monitor feel
     setInterval(draw, 75); 
 }
+
+// ========================================================
+// HELP SYSTEM & DRAWER LOGIC
+// ========================================================
+document.addEventListener("DOMContentLoaded", () => {
+    const helpTrigger = document.getElementById('helpSystemTrigger');
+    const helpSmoke = document.getElementById('helpSmokeBurst');
+    const helpBubble = document.getElementById('helpSpeechBubble');
+    
+    const drawer = document.getElementById('deploymentDrawer');
+    const overlay = document.getElementById('drawerOverlay');
+    const closeBtn = document.getElementById('closeDrawerBtn');
+
+    if(helpTrigger) {
+        // Step 1: Wait 2.5 seconds after page load, then show the ? and trigger smoke
+        setTimeout(() => {
+            helpTrigger.classList.add('visible');
+            helpSmoke.classList.add('fire-smoke-anim');
+            
+            // Step 2: Wait 1.5 seconds after the smoke clears, then pop the text bubble
+            setTimeout(() => {
+                helpBubble.classList.add('show-bubble');
+            }, 1500);
+
+        }, 2500);
+
+        // Drawer Open Function
+        const openDrawer = () => {
+            drawer.classList.add('drawer-open');
+            overlay.classList.add('drawer-open');
+        };
+
+        // Drawer Close Function
+        const closeDrawer = () => {
+            drawer.classList.remove('drawer-open');
+            overlay.classList.remove('drawer-open');
+        };
+
+        // Click Events
+        helpTrigger.addEventListener('click', openDrawer);
+        closeBtn.addEventListener('click', closeDrawer);
+        overlay.addEventListener('click', closeDrawer); // Clicking the dark background closes it
+    }
+});
