@@ -202,14 +202,15 @@ document.addEventListener("DOMContentLoaded", () => {
             if(drawer) drawer.classList.remove('open');
         };
 
-        // Click Listeners
+        // Click Listeners (The wrapper encompasses both the ? and the bubble)
         if(helpWrapper) helpWrapper.addEventListener('click', openDrawer);
         if(closeBtn) closeBtn.addEventListener('click', closeDrawer);
 
-        // Click outside drawer to close
+        // Click outside the console to close it
         document.addEventListener('click', (e) => {
             if (drawer && drawer.classList.contains('open')) {
-                if (!drawer.contains(e.target) && !helpWrapper.contains(e.target)) {
+                const panel = document.querySelector('#deliverablesDeploymentDrawer .heavy-machinery-panel');
+                if (panel && !panel.contains(e.target) && !helpWrapper.contains(e.target)) {
                     closeDrawer();
                 }
             }
@@ -316,13 +317,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // Terminal Elements
     const mechBtns = document.querySelectorAll('#deliverablesDeploymentDrawer .mech-btn');
     const dosOutput = document.getElementById('dosOutput');
     const lofiLogoDisplay = document.getElementById('lofiLogoDisplay');
     const dosContentArea = document.querySelector('#deliverablesDeploymentDrawer .dos-inner-content');
     
-    // Status Lights
     const statPwr = document.getElementById('statusPwr');
     const statLnk = document.getElementById('statusLnk');
     const statDat = document.getElementById('statusDat');
@@ -372,7 +371,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Hardware Canvas Engines (Oscilloscope and VU Meter)
     const oscCanvas = document.getElementById('oscCanvas');
     const vuCanvas = document.getElementById('vuCanvas');
     
@@ -385,8 +383,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const vuLevels = [20, 40, 30, 60, 50, 20, 10, 40];
 
         function drawHardware() {
-            const drawerEl = document.getElementById('deliverablesDeploymentDrawer');
-            if (!drawerEl || !drawerEl.classList.contains('open')) {
+            if (!drawer || !drawer.classList.contains('open')) {
                 requestAnimationFrame(drawHardware); 
                 return;
             }
@@ -447,7 +444,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         drawHardware();
 
-        // Knobs Logic
         const hKnobs = document.querySelectorAll('#deliverablesDeploymentDrawer .analog-knob');
         const panel = document.querySelector('#deliverablesDeploymentDrawer .heavy-machinery-panel'); 
 
@@ -456,12 +452,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const action = knob.getAttribute('data-action');
             let isDragging = false;
 
-            knob.addEventListener('mousedown', () => {
-                isDragging = true; document.body.style.cursor = 'grabbing';
-            });
-            window.addEventListener('mouseup', () => {
-                isDragging = false; document.body.style.cursor = '';
-            });
+            knob.addEventListener('mousedown', () => { isDragging = true; document.body.style.cursor = 'grabbing'; });
+            window.addEventListener('mouseup', () => { isDragging = false; document.body.style.cursor = ''; });
             window.addEventListener('mousemove', (e) => {
                 if (!isDragging) return;
                 
@@ -491,7 +483,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Power the machine ON when initially loaded
     setTimeout(() => {
         if(statPwr) statPwr.classList.add('on-green');
         if(lofiLogoDisplay) lofiLogoDisplay.innerHTML = "<div class='orbiting-logo-container' style='position: relative; width: 60px; height: 60px; margin: 0 auto 20px auto;'><div style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 2px dashed #00f0ff; border-radius: 50%; animation: radarSpin 4s linear infinite;'></div><div style='position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #00f0ff; font-size: 24px; text-shadow: 0 0 10px #00f0ff;'>?</div></div>";

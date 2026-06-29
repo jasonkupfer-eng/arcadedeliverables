@@ -599,63 +599,23 @@ html, body {
    IN-CABINET DEPLOYMENT DRAWER & HELP SYSTEM
    ======================================================== */
 
-.in-cabinet-drawer {
-    position: absolute;
-    top: 0;
-    right: -100%;
-    width: 65%;
-    height: 100%;
-    z-index: 99999;
-    transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+/* 1. Shrunk Tooltip & Font Fix */
+#deliverablesTooltip {
+    width: 170px;
+    font-size: 8px;
+    padding: 12px;
+    top: -65px;
+    right: 45px;
     
-    /* Format Database Styling */
-    background: rgba(2, 6, 4, 0.95);
-    border-left: 4px solid var(--neon-cyan);
-    border-radius: 40% / 8%;
-    box-shadow: inset 0 0 100px rgba(0,0,0,1), -10px 0 50px rgba(0,0,0,0.9);
-    
-    display: flex;
-    flex-direction: column;
+    /* Fixes the "fi" smooshed font issue */
+    font-variant-ligatures: none;
+    -webkit-font-variant-ligatures: none;
 }
 
-.in-cabinet-drawer.open {
-    right: 0;
-}
+#deliverablesTooltip::after { left: auto; right: 20px; border-width: 10px 8px 0; bottom: -10px; }
+#deliverablesTooltip::before { left: auto; right: 16px; border-width: 14px 12px 0; bottom: -14px; }
 
-.drawer-scroll-area {
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
-/* Custom Scrollbar for Drawer */
-.drawer-scroll-area::-webkit-scrollbar { width: 14px; }
-.drawer-scroll-area::-webkit-scrollbar-track { background: rgba(0,0,0,0.5); border-left: 2px solid #333; }
-.drawer-scroll-area::-webkit-scrollbar-thumb { background: var(--neon-cyan); border-radius: 2px; border: 2px solid #111; }
-.drawer-scroll-area::-webkit-scrollbar-thumb:hover { background: var(--neon-pink); }
-
-/* Adjust Tooltip Tail to point to the right */
-#deliverablesTooltip::after {
-    left: auto;
-    right: 30px;
-}
-#deliverablesTooltip::before {
-    left: auto;
-    right: 26px;
-}
-
-/* Mobile Adjustments for Drawer */
-@media (max-width: 1300px) {
-    .in-cabinet-drawer { width: 85%; }
-}
-@media (max-width: 768px) {
-    .in-cabinet-drawer { width: 100%; border-radius: 0; }
-}
-
-/* ========================================================
-   CARTOON FLOATING HELP ICON & SMOKE
-   ======================================================== */
+/* 2. Cartoon Floating Help Icon & Smoke */
 .floating-help-icon {
     position: absolute; top: 0; right: 0; width: 36px; height: 36px;
     background: var(--neon-green); color: #000;
@@ -667,8 +627,7 @@ html, body {
     transition: filter 0.2s; z-index: 10;
 }
 .floating-help-icon.active {
-    animation: popIn 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
-               cartoonHover 2.5s ease-in-out 0.5s infinite alternate;
+    animation: popIn 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, cartoonHover 2.5s ease-in-out 0.5s infinite alternate;
 }
 .floating-help-icon:hover { filter: brightness(1.2); animation-play-state: paused; }
 .floating-help-icon:active { box-shadow: 0 0px 0 rgba(0, 150, 0, 1), 0 2px 5px rgba(0,0,0,0.5); margin-top: 4px; }
@@ -678,9 +637,13 @@ html, body {
     background: radial-gradient(circle, #ffffff 20%, #dddddd 50%, transparent 70%);
     border-radius: 50%; opacity: 0; z-index: 9; pointer-events: none;
 }
-.smoke-burst.active { animation: smokePop 0.8s ease-out forwards; }
+.smoke-burst.active { animation: deliverablesSmokePop 0.8s ease-out forwards; }
 
-@keyframes smokePop { 0% { transform: scale(0); opacity: 1; filter: blur(2px); } 40% { transform: scale(1.5); opacity: 0.8; filter: blur(4px); } 100% { transform: scale(2.2); opacity: 0; filter: blur(8px); } }
+@keyframes deliverablesSmokePop { 
+    0% { transform: scale(0); opacity: 1; filter: blur(2px); } 
+    40% { transform: scale(1.5); opacity: 0.8; filter: blur(4px); } 
+    100% { transform: scale(2.2); opacity: 0; filter: blur(8px); } 
+}
 @keyframes popIn { 0% { opacity: 0; transform: scale(0) rotate(-45deg); } 100% { opacity: 1; transform: scale(1) rotate(15deg); } }
 @keyframes cartoonHover { 0% { transform: translateY(0) rotate(15deg); } 100% { transform: translateY(-6px) rotate(5deg); } }
 
@@ -695,8 +658,34 @@ html, body {
 }
 .pro-arcade-tooltip.visible { opacity: 1; transform: translateY(0) scale(1); }
 
+/* 3. The Slide-Out Mini Drawer */
+.in-cabinet-drawer {
+    position: absolute;
+    top: 0; right: -100%;
+    width: 65%; /* Leaves left side visible */
+    height: 100%;
+    z-index: 99999;
+    transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    
+    background: rgba(2, 6, 4, 0.95);
+    border-left: 4px solid var(--neon-cyan);
+    border-radius: 0 18px 18px 0; /* Matches the right side of the CRT */
+    overflow: hidden;
+}
+.in-cabinet-drawer.open { right: 0; }
+
+.drawer-scroll-area {
+    width: 100%; height: 100%;
+    overflow-y: auto; overflow-x: hidden;
+    padding: 20px;
+}
+.drawer-scroll-area::-webkit-scrollbar { width: 14px; }
+.drawer-scroll-area::-webkit-scrollbar-track { background: rgba(0,0,0,0.5); border-left: 2px solid #333; }
+.drawer-scroll-area::-webkit-scrollbar-thumb { background: var(--neon-cyan); border-radius: 2px; border: 2px solid #111; }
+.drawer-scroll-area::-webkit-scrollbar-thumb:hover { background: var(--neon-pink); }
+
 /* =========================================
-   HEAVY INDUSTRIAL ENGINEERING PANEL
+   HEAVY INDUSTRIAL ENGINEERING PANEL (BASE)
    ========================================= */
 .heavy-machinery-panel {
     width: 100%; max-width: 1400px; margin: 0 auto; min-height: 800px;
@@ -706,7 +695,6 @@ html, body {
     box-shadow: inset 4px 4px 15px rgba(255,255,255,0.3), inset -8px -8px 25px rgba(0,0,0,0.6), 0 30px 60px rgba(0,0,0,0.95), 0 0 50px rgba(57, 255, 20, 0.1); 
     position: relative; overflow: hidden;
 }
-
 .screw { position: absolute; width: 16px; height: 16px; background: linear-gradient(135deg, #a0a0a0, #444); border-radius: 50%; border: 1px solid #111; box-shadow: inset 1px 1px 3px rgba(255,255,255,0.6), 3px 3px 5px rgba(0,0,0,0.8); }
 .screw::after { content: ''; position: absolute; top: 6px; left: 2px; width: 10px; height: 2px; background: #222; transform: rotate(45deg); box-shadow: 0 1px 0 rgba(255,255,255,0.3); }
 .screw::before { content: ''; position: absolute; top: 2px; left: 6px; width: 2px; height: 10px; background: #222; transform: rotate(45deg); box-shadow: 1px 0 0 rgba(255,255,255,0.3); }
@@ -734,7 +722,6 @@ html, body {
 
 .mech-btn { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #444, #000); border: 2px solid #000; padding: 6px; cursor: pointer; outline: none; box-shadow: 0 8px 15px rgba(0,0,0,0.8), inset 1px 1px 3px rgba(255,255,255,0.3); transition: transform 0.1s; display: flex; justify-content: center; align-items: center; }
 .btn-core { width: 100%; height: 100%; border-radius: 50%; box-shadow: inset 2px 2px 6px rgba(255,255,255,0.4), inset -2px -2px 8px rgba(0,0,0,0.8), 0 2px 5px rgba(0,0,0,0.9); transition: all 0.1s; animation: btnStandby 3s infinite alternate ease-in-out; }
-
 .btn-core.red { background: radial-gradient(circle at 30% 30%, #ff4d4d, #990000); color: #ff0000; }
 .btn-core.blue { background: radial-gradient(circle at 30% 30%, #4da6ff, #004d99); color: #00f0ff; }
 .btn-core.pink { background: radial-gradient(circle at 30% 30%, #ff66b3, #99004d); color: #ff007f; }
@@ -744,18 +731,10 @@ html, body {
 .btn-core.green { background: radial-gradient(circle at 30% 30%, #66ff66, #009900); color: #39ff14; }
 .btn-core.yellow { background: radial-gradient(circle at 30% 30%, #ffff66, #999900); color: #ffea00; }
 
-@keyframes btnStandby {
-    0% { filter: brightness(0.4); box-shadow: inset 2px 2px 6px rgba(255,255,255,0.2), 0 0 2px currentColor; }
-    100% { filter: brightness(1.3); box-shadow: inset 2px 2px 6px rgba(255,255,255,0.6), 0 0 14px currentColor; }
-}
-
+@keyframes btnStandby { 0% { filter: brightness(0.4); box-shadow: inset 2px 2px 6px rgba(255,255,255,0.2), 0 0 2px currentColor; } 100% { filter: brightness(1.3); box-shadow: inset 2px 2px 6px rgba(255,255,255,0.6), 0 0 14px currentColor; } }
 .mech-btn:active { transform: translateY(6px); box-shadow: 0 2px 4px rgba(0,0,0,0.8), inset 1px 1px 2px rgba(255,255,255,0.2); }
 .mech-btn.active .btn-core { animation: btnStrobe 0.15s infinite alternate; }
-
-@keyframes btnStrobe {
-    0% { filter: brightness(1.2); box-shadow: inset 4px 4px 8px rgba(255,255,255,0.8), 0 0 15px currentColor; }
-    100% { filter: brightness(2.5); box-shadow: inset 6px 6px 12px rgba(255,255,255,1), 0 0 40px currentColor, 0 0 80px currentColor; }
-}
+@keyframes btnStrobe { 0% { filter: brightness(1.2); box-shadow: inset 4px 4px 8px rgba(255,255,255,0.8), 0 0 15px currentColor; } 100% { filter: brightness(2.5); box-shadow: inset 6px 6px 12px rgba(255,255,255,1), 0 0 40px currentColor, 0 0 80px currentColor; } }
 
 .mech-label { font-family: 'Arial', sans-serif; font-weight: bold; font-size: 11px; color: #fff; text-shadow: 1px 1px 0 #000; }
 
@@ -787,72 +766,47 @@ html, body {
 .analog-toggle-btn { background: linear-gradient(to bottom, #d32f2f, #922b21); border: 4px solid #111; border-radius: 8px; color: #fff; font-family: 'Arial Black', sans-serif; font-size: 16px; padding: 12px 25px; cursor: pointer; box-shadow: 0 8px 0 #4a1510, 0 15px 20px rgba(0,0,0,0.6), inset 0 2px 3px rgba(255,255,255,0.5); text-shadow: 1px 1px 3px #000; }
 .analog-toggle-btn:active { transform: translateY(8px); box-shadow: 0 0px 0 #4a1510, 0 3px 8px rgba(0,0,0,0.7), inset 0 3px 8px rgba(0,0,0,0.8); }
 
-@media (max-width: 1200px) {
-    .machinery-grid { flex-direction: column; }
-    .routing-module, .overrides-module { flex: none; }
-    .crt-bezel { height: 450px; }
+/* 4. THE MINIATURIZATION ENGINE (Shrinks console proportionally) */
+.mini-console {
+    min-height: auto !important;
+    padding: 15px !important;
+    border-width: 6px !important;
 }
-
-/* ========================================================
-   DRAWER SPECIFIC OVERRIDES & FIXES
-   ======================================================== */
-
-/* 1. Force the Console to Stack Vertically inside the Drawer */
-.in-cabinet-drawer .heavy-machinery-panel {
-    min-height: auto;
-    padding: 15px;
-    border-width: 6px;
-    width: 100%;
+.mini-console .machinery-grid {
+    flex-direction: row !important; /* Forces 3 Columns */
+    gap: 12px !important;
 }
+.mini-console .routing-module { flex: 0 0 160px !important; padding: 12px !important; }
+.mini-console .overrides-module { flex: 0 0 200px !important; padding: 12px !important;}
+.mini-console .display-module { flex: 1 !important; padding: 12px !important;}
 
-.in-cabinet-drawer .machinery-grid {
-    flex-direction: column; /* This fixes the cut-off issue! */
-    gap: 15px;
+/* Shrink Buttons & Text */
+.mini-console .mech-btn { width: 34px !important; height: 34px !important; padding: 4px !important; }
+.mini-console .mech-label { font-size: 8px !important; }
+.mini-console .module-title-plate { font-size: 10px !important; padding: 6px !important; margin-bottom: 12px !important; }
+.mini-console .panel-header h2 { font-size: 16px !important; }
+.mini-console .panel-header { padding: 10px 20px !important; margin-bottom: 20px !important; }
+
+/* Fix CRT Screen Layout */
+.mini-console .crt-bezel { height: 260px !important; padding: 15px !important; display: flex; flex-direction: column; }
+.mini-console .dos-inner-content { flex: 1; overflow-y: auto; padding: 15px !important; }
+.mini-console .dos-body { font-size: 16px !important; }
+.mini-console .lofi-logo-container { font-size: 10px !important; margin-bottom: 10px !important; }
+
+/* Shrink Gauges & Knobs */
+.mini-console .gauge-container { padding: 10px !important; margin-bottom: 10px !important; }
+.mini-console .gauge-overlay { font-size: 8px !important; right: 10px !important; bottom: 4px !important; }
+.mini-console .knob-rack { padding: 10px !important; gap: 5px !important; margin-top: 15px !important; }
+.mini-console .knob-dial { width: 36px !important; height: 36px !important; }
+.mini-console .knob-lbl { font-size: 9px !important; }
+.mini-console .bank-label { font-size: 9px !important; margin-bottom: 10px !important; }
+.mini-console .mech-btn-row { margin-bottom: 8px !important; }
+
+/* Mobile View Fallback */
+@media (max-width: 1024px) {
+    .in-cabinet-drawer { width: 90%; }
 }
-
-.in-cabinet-drawer .machine-module {
-    flex: auto;
-    width: 100%;
-}
-
-.in-cabinet-drawer .crt-bezel {
-    height: 350px; /* Gives the screen breathing room when stacked */
-}
-
-.in-cabinet-drawer .panel-header h2 {
-    font-size: 18px; /* Shrink header to fit drawer */
-}
-
-/* 2. Shrink the Tooltip Text and Re-align the Tail */
-#deliverablesTooltip {
-    font-size: 9px;
-    padding: 12px;
-}
-
-#deliverablesTooltip::after {
-    left: auto;
-    right: 30px;
-    border-width: 12px 10px 0;
-    bottom: -12px;
-}
-
-#deliverablesTooltip::before {
-    left: auto;
-    right: 26px;
-    border-width: 16px 14px 0;
-    bottom: -16px;
-}
-
-/* 3. Bulletproof the Smoke Animation */
-.smoke-burst {
-    position: absolute; top: -14px; right: -14px; width: 64px; height: 64px;
-    background: radial-gradient(circle, #ffffff 20%, #dddddd 50%, transparent 70%);
-    border-radius: 50%; opacity: 0; z-index: 9; pointer-events: none;
-}
-.smoke-burst.active { animation: deliverablesSmokePop 0.8s ease-out forwards; }
-
-@keyframes deliverablesSmokePop { 
-    0% { transform: scale(0); opacity: 1; filter: blur(2px); } 
-    40% { transform: scale(1.5); opacity: 0.8; filter: blur(4px); } 
-    100% { transform: scale(2.2); opacity: 0; filter: blur(8px); } 
+@media (max-width: 768px) {
+    .in-cabinet-drawer { width: 100%; border-radius: 0; }
+    .mini-console .machinery-grid { flex-direction: column !important; }
 }

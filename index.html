@@ -47,19 +47,28 @@
                 <div class="system-status">TRANSMISSION ORIGIN: EARTH</div>
             </div>
 
-            <div id="deliverablesHelpWrapper" style="position: absolute; bottom: 30px; right: 30px; width: 36px; height: 36px; z-index: 9000; cursor: pointer;">
+            <!-- ========================================================
+     IN-CABINET DEPLOYMENT DRAWER & HELP SYSTEM
+     ======================================================== -->
+
+<!-- 1. The Help Trigger -->
+<div id="deliverablesHelpWrapper" style="position: absolute; bottom: 30px; right: 30px; width: 36px; height: 36px; z-index: 9000; cursor: pointer;">
     <div id="deliverablesSmokeBurst" class="smoke-burst"></div>
     <div id="deliverablesHelpIcon" class="floating-help-icon">?</div>
     
-    <div id="deliverablesTooltip" class="pro-arcade-tooltip" style="top: -85px; left: -180px; width: 200px; pointer-events: auto;">
+    <!-- The Word Bubble -->
+    <div id="deliverablesTooltip" class="pro-arcade-tooltip" style="pointer-events: auto;">
         Great......Now how am I actually supposed to use this file?!
     </div>
 </div>
 
+<!-- 2. The Slide-Out Mini Drawer -->
 <div id="deliverablesDeploymentDrawer" class="in-cabinet-drawer">
-    <div class="drawer-scroll-area" style="padding: 20px; padding-bottom: 60px;">
+    <div class="drawer-scroll-area">
         
-        <div class="heavy-machinery-panel"> <div class="panel-header">
+        <!-- THE ACTUAL DEPLOYMENT CONSOLE (With mini-console class) -->
+        <div class="heavy-machinery-panel mini-console">
+            <div class="panel-header">
                 <div class="screw top-left"></div><div class="screw top-right"></div>
                 <h2>SYS.OP. TERMINAL</h2>
                 <div class="warning-stripe"></div>
@@ -155,7 +164,9 @@
 
             </div>
         </div>
-        </div>
+        <!-- END DEPLOYMENT CONSOLE -->
+
+    </div>
 </div>
             </div> </div> </div> <script src="app.js"></script>
 </body>
