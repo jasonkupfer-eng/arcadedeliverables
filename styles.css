@@ -792,3 +792,67 @@ html, body {
     .routing-module, .overrides-module { flex: none; }
     .crt-bezel { height: 450px; }
 }
+
+/* ========================================================
+   DRAWER SPECIFIC OVERRIDES & FIXES
+   ======================================================== */
+
+/* 1. Force the Console to Stack Vertically inside the Drawer */
+.in-cabinet-drawer .heavy-machinery-panel {
+    min-height: auto;
+    padding: 15px;
+    border-width: 6px;
+    width: 100%;
+}
+
+.in-cabinet-drawer .machinery-grid {
+    flex-direction: column; /* This fixes the cut-off issue! */
+    gap: 15px;
+}
+
+.in-cabinet-drawer .machine-module {
+    flex: auto;
+    width: 100%;
+}
+
+.in-cabinet-drawer .crt-bezel {
+    height: 350px; /* Gives the screen breathing room when stacked */
+}
+
+.in-cabinet-drawer .panel-header h2 {
+    font-size: 18px; /* Shrink header to fit drawer */
+}
+
+/* 2. Shrink the Tooltip Text and Re-align the Tail */
+#deliverablesTooltip {
+    font-size: 9px;
+    padding: 12px;
+}
+
+#deliverablesTooltip::after {
+    left: auto;
+    right: 30px;
+    border-width: 12px 10px 0;
+    bottom: -12px;
+}
+
+#deliverablesTooltip::before {
+    left: auto;
+    right: 26px;
+    border-width: 16px 14px 0;
+    bottom: -16px;
+}
+
+/* 3. Bulletproof the Smoke Animation */
+.smoke-burst {
+    position: absolute; top: -14px; right: -14px; width: 64px; height: 64px;
+    background: radial-gradient(circle, #ffffff 20%, #dddddd 50%, transparent 70%);
+    border-radius: 50%; opacity: 0; z-index: 9; pointer-events: none;
+}
+.smoke-burst.active { animation: deliverablesSmokePop 0.8s ease-out forwards; }
+
+@keyframes deliverablesSmokePop { 
+    0% { transform: scale(0); opacity: 1; filter: blur(2px); } 
+    40% { transform: scale(1.5); opacity: 0.8; filter: blur(4px); } 
+    100% { transform: scale(2.2); opacity: 0; filter: blur(8px); } 
+}
