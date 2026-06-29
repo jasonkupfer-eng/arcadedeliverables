@@ -510,9 +510,12 @@ document.addEventListener("DOMContentLoaded", () => {
             window.addEventListener('touchmove', drag, { passive: false });
         });
 
+    } // <--- THIS WAS THE MISSING BRACKET! It closes the hardware canvas block.
+
     setTimeout(() => {
         if(statPwr) statPwr.classList.add('on-green');
         if(lofiLogoDisplay) lofiLogoDisplay.innerHTML = "<div class='orbiting-logo-container' style='position: relative; width: 60px; height: 60px; margin: 0 auto 20px auto;'><div style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 2px dashed #00f0ff; border-radius: 50%; animation: radarSpin 4s linear infinite;'></div><div style='position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #00f0ff; font-size: 24px; text-shadow: 0 0 10px #00f0ff;'>?</div></div>";
         if(dosOutput) dosOutput.innerHTML = "AWAITING TARGET SELECTION...<br><br><span style='color: #fff;'>PLEASE SELECT A DESTINATION TO LOAD DEPLOYMENT PROTOCOLS.</span>";
     }, 800);
-});
+
+}); // <--- This cleanly closes the DOMContentLoaded listener.
