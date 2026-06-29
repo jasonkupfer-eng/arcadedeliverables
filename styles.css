@@ -599,12 +599,12 @@ html, body {
    IN-CABINET DEPLOYMENT DRAWER & HELP SYSTEM
    ======================================================== */
 
-/* 1. Shrunk Tooltip & Font Fix */
+/* 1. Adjusted Tooltip & Font Fix */
 #deliverablesTooltip {
-    width: 170px;
-    font-size: 8px;
-    padding: 12px;
-    top: -65px;
+    width: 220px;
+    font-size: 10px;
+    padding: 14px;
+    top: -85px;
     right: 45px;
     
     /* Fixes the "fi" smooshed font issue */
@@ -809,4 +809,17 @@ html, body {
 @media (max-width: 768px) {
     .in-cabinet-drawer { width: 100%; border-radius: 0; }
     .mini-console .machinery-grid { flex-direction: column !important; }
+}
+
+/* =========================================
+   SYSTEM GLITCH OVERRIDE (Triggered by Sync Knob)
+   ========================================= */
+.system-glitch .status-light { animation: panicBlink 0.05s infinite !important; }
+.system-glitch .btn-core { animation: panicBlink 0.08s infinite !important; }
+.system-glitch .crt-glass { filter: brightness(1.5) contrast(2) hue-rotate(90deg) !important; }
+.system-glitch .crt-internal-scanline { animation-duration: 0.1s !important; }
+
+@keyframes panicBlink {
+    0% { filter: brightness(0.2); box-shadow: none; }
+    100% { filter: brightness(3); box-shadow: 0 0 30px currentColor, 0 0 60px #fff; }
 }
