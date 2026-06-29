@@ -444,24 +444,42 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         drawHardware();
 
-        const hKnobs = document.querySelectorAll('#deliverablesDeploymentDrawer .analog-knob');
-        const panel = document.querySelector('#deliverablesDeploymentDrawer .heavy-machinery-panel'); 
+        // Knobs Logic (Mouse & Touch Enabled)
+        const hKnobs = document.querySelectorAll('#deliverablesDeploymentDrawer .analog-knob, #deliverablesDeploymentModal .analog-knob');
+        const panel = document.querySelector('.heavy-machinery-panel'); 
 
         hKnobs.forEach(knob => {
             const dial = knob.querySelector('.knob-dial');
             const action = knob.getAttribute('data-action');
             let isDragging = false;
 
-            knob.addEventListener('mousedown', () => { isDragging = true; document.body.style.cursor = 'grabbing'; });
-            window.addEventListener('mouseup', () => { isDragging = false; document.body.style.cursor = ''; });
-            window.addEventListener('mousemove', (e) => {
+            const startDrag = (e) => { 
+                isDragging = true; 
+                document.body.style.cursor = 'grabbing'; 
+            };
+            
+            const endDrag = () => { 
+                isDragging = false; 
+                document.body.style.cursor = ''; 
+            };
+            
+            const drag = (e) => {
                 if (!isDragging) return;
+                
+                // Prevent page scrolling while turning the knob on mobile
+                if (e.type === 'touchmove') {
+                    e.preventDefault(); 
+                }
+                
+                // Get correct coordinates depending on mouse vs touch
+                const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
                 
                 const rect = dial.getBoundingClientRect();
                 const centerX = rect.left + rect.width / 2;
                 const centerY = rect.top + rect.height / 2;
                 
-                let angle = Math.atan2(e.clientY - centerY, e.clientX - centerX) * (180 / Math.PI) + 90; 
+                let angle = Math.atan2(clientY - centerY, clientX - centerX) * (180 / Math.PI) + 90; 
                 dial.style.transform = `rotate(${angle}deg)`;
                 
                 if (action === 'freq-up') tele.oscFreq = 0.01 + (Math.abs(angle / 360) * 0.3); 
@@ -479,9 +497,18 @@ document.addEventListener("DOMContentLoaded", () => {
                         }, 200);
                     }
                 }
-            });
+            };
+
+            // Mouse Events
+            knob.addEventListener('mousedown', startDrag);
+            window.addEventListener('mouseup', endDrag);
+            window.addEventListener('mousemove', drag);
+
+            // Touch Events
+            knob.addEventListener('touchstart', startDrag, { passive: true });
+            window.addEventListener('touchend', endDrag);
+            window.addEventListener('touchmove', drag, { passive: false });
         });
-    }
 
     setTimeout(() => {
         if(statPwr) statPwr.classList.add('on-green');

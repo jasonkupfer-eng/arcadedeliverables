@@ -823,3 +823,26 @@ html, body {
     0% { filter: brightness(0.2); box-shadow: none; }
     100% { filter: brightness(3); box-shadow: 0 0 30px currentColor, 0 0 60px #fff; }
 }
+
+/* Mobile Word Bubble Shrink */
+@media (max-width: 768px) {
+    #deliverablesTooltip {
+        width: 160px !important;
+        font-size: 8px !important;
+        padding: 10px !important;
+        top: -65px !important;
+        right: 40px !important;
+    }
+    
+    #deliverablesTooltip::after { 
+        border-width: 8px 6px 0 !important; 
+        bottom: -8px !important; 
+        right: 15px !important; 
+    }
+    
+    #deliverablesTooltip::before { 
+        border-width: 12px 10px 0 !important; 
+        bottom: -12px !important; 
+        right: 11px !important; 
+    }
+}
