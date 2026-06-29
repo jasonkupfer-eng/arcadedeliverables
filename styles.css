@@ -845,4 +845,20 @@ html, body {
         bottom: -12px !important; 
         right: 11px !important; 
     }
+
+/* =========================================
+   DEPLOYMENT CONSOLE ALIGNMENT FIXES
+   ========================================= */
+
+/* Give the miniaturized modules extra bottom padding to clear the physical screws */
+.mini-console .routing-module, 
+.mini-console .overrides-module, 
+.mini-console .display-module { 
+    padding-bottom: 38px !important; 
+}
+
+.machine-module {
+    padding-bottom: 45px !important;
+}
+
 }
