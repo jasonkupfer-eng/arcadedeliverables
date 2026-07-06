@@ -682,31 +682,37 @@ html, body {
 .pro-arcade-tooltip.tooltip-left::after { left: 30px; right: auto; border-width: 16px 12px 0; bottom: -16px; }
 .pro-arcade-tooltip.tooltip-left::before { left: 26px; right: auto; border-width: 21px 16px 0; bottom: -21px; }
 
-/* Mobile Adjustment for the new Left Bubble */
+/* Mobile Adjustment for the new Left Bubble & Heart Wrapper */
 @media (max-width: 768px) {
+    
+    /* Forces the anchor into the bottom corner ONLY on mobile */
+    #debriefLinkWrapper {
+        bottom: 25px !important;
+        left: 15px !important;
+        transform: scale(0.85); /* Shrinks it slightly so it isn't bulky */
+        transform-origin: bottom left;
+    }
+
     .pro-arcade-tooltip.tooltip-left {
-        width: 120px !important; /* Slimmed down to dodge the center button */
-        left: -15px !important;
-        bottom: 35px !important; /* Snugs it right above the dropped heart */
+        width: 145px !important; /* Extremely slim to dodge the center button */
+        left: 0px !important;
+        bottom: 60px !important;
         top: auto !important;
         margin-left: 0 !important;
+        font-size: 8px !important; /* Smaller font to fit the slim width */
+        padding: 10px !important;
     }
-    
-    /* Re-align the tails for the slimmer bubble */
-    .pro-arcade-tooltip.tooltip-left::after { left: 30px !important; right: auto !important; bottom: -16px !important; }
-    .pro-arcade-tooltip.tooltip-left::before { left: 26px !important; right: auto !important; bottom: -21px !important; }
-}
 
-.pro-arcade-tooltip {
-    position: absolute; width: 280px; background: #ffffff; border: 4px solid #111;
-    border-radius: 16px; color: #000; padding: 16px;
-    font-family: 'Press Start 2P', monospace; font-size: 11px; line-height: 1.8;
-    z-index: 99999; box-shadow: 8px 8px 0 rgba(0,0,0,0.8);
-    pointer-events: none; opacity: 0; transform: translateY(20px) scale(0.8);
-    transform-origin: bottom right; 
-    transition: opacity 0.2s, transform 0.2s; text-align: center;
+    /* Re-align and shrink the pointer tails for the slimmer bubble */
+    .pro-arcade-tooltip.tooltip-left::after { 
+        left: 20px !important; right: auto !important; 
+        bottom: -12px !important; border-width: 12px 10px 0 !important; 
+    }
+    .pro-arcade-tooltip.tooltip-left::before { 
+        left: 16px !important; right: auto !important; 
+        bottom: -16px !important; border-width: 16px 14px 0 !important; 
+    }
 }
-.pro-arcade-tooltip.visible { opacity: 1; transform: translateY(0) scale(1); }
 
 /* 3. The Slide-Out Mini Drawer */
 .in-cabinet-drawer {
