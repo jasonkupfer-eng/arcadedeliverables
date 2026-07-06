@@ -673,23 +673,26 @@ html, body {
 /* Left-Aligned Word Bubble for the Heart */
 .pro-arcade-tooltip.tooltip-left {
     transform-origin: bottom left;
-    left: -10px; /* Aligns with the left side of the screen */
-    top: -95px;  /* Pushes it above the heart */
+    left: -10px; 
+    bottom: 60px; /* Forces it to always sit above the heart, regardless of text height */
+    top: auto;    /* Clears the old top alignment */
 }
+
 /* Re-aims the tail to point down at the heart on the left side */
-.pro-arcade-tooltip.tooltip-left::after { left: 30px; right: auto; border-width: 16px 12px 0; }
-.pro-arcade-tooltip.tooltip-left::before { left: 26px; right: auto; border-width: 21px 16px 0; }
+.pro-arcade-tooltip.tooltip-left::after { left: 30px; right: auto; border-width: 16px 12px 0; bottom: -16px; }
+.pro-arcade-tooltip.tooltip-left::before { left: 26px; right: auto; border-width: 21px 16px 0; bottom: -21px; }
 
 /* Mobile Adjustment for the new Left Bubble */
 @media (max-width: 768px) {
     .pro-arcade-tooltip.tooltip-left {
         width: 180px !important;
         left: -15px !important;
-        top: -80px !important;
+        bottom: 60px !important;
+        top: auto !important;
         margin-left: 0 !important;
     }
-    .pro-arcade-tooltip.tooltip-left::after { left: 35px !important; right: auto !important; }
-    .pro-arcade-tooltip.tooltip-left::before { left: 31px !important; right: auto !important; }
+    .pro-arcade-tooltip.tooltip-left::after { left: 35px !important; right: auto !important; bottom: -16px !important; }
+    .pro-arcade-tooltip.tooltip-left::before { left: 31px !important; right: auto !important; bottom: -21px !important; }
 }
 
 .pro-arcade-tooltip {
