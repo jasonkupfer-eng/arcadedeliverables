@@ -168,23 +168,40 @@ document.addEventListener("DOMContentLoaded", () => {
     const smokeBurst = document.getElementById('deliverablesSmokeBurst');
     const tooltip = document.getElementById('deliverablesTooltip');
     
+    // New Debrief Elements
+    const debriefIcon = document.getElementById('debriefIcon');
+    const debriefSmokeBurst = document.getElementById('debriefSmokeBurst');
+    const debriefTooltip = document.getElementById('debriefTooltip');
+
     const drawer = document.getElementById('deliverablesDeploymentDrawer');
     const closeBtn = document.getElementById('closeDeliverablesDrawerBtn');
 
     if (helpWrapper) {
-        // Step 1: Wait 2.5 seconds, then trigger smoke and pop the icon
+        // Step 1: Wait 2.5 seconds, then trigger Help smoke and pop the icon
         setTimeout(() => {
             if(smokeBurst) smokeBurst.classList.add('active');
             
-            // Wait 400ms for smoke to billow, then pop icon
             setTimeout(() => {
                 if(helpIcon) helpIcon.classList.add('active');
             }, 400);
 
-            // Step 2: Wait an additional 1.5 seconds, then pop the speech bubble
+            // Step 2: Pop the Help speech bubble
             setTimeout(() => {
                 if(tooltip) tooltip.classList.add('visible');
             }, 1900);
+
+            // Step 3: Wait a bit longer, then pop the Debrief Heart on the left
+            setTimeout(() => {
+                if(debriefSmokeBurst) debriefSmokeBurst.classList.add('active');
+                
+                setTimeout(() => {
+                    if(debriefIcon) debriefIcon.classList.add('active');
+                }, 400);
+
+                setTimeout(() => {
+                    if(debriefTooltip) debriefTooltip.classList.add('visible');
+                }, 1200);
+            }, 4000); // Triggers 4 seconds after the Help sequence starts
 
         }, 2500);
 
@@ -202,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if(drawer) drawer.classList.remove('open');
         };
 
-        // Click Listeners (The wrapper encompasses both the ? and the bubble)
+        // Click Listeners
         if(helpWrapper) helpWrapper.addEventListener('click', openDrawer);
         if(closeBtn) closeBtn.addEventListener('click', closeDrawer);
 
