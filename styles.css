@@ -922,12 +922,20 @@ html, body {
    THE MISSING SPEECH BUBBLE MASTER CLASS
    ========================================= */
 .pro-arcade-tooltip {
-    position: absolute !important; /* CRITICAL: Pulls it out of the background flow */
+    position: absolute !important; 
     background: #ffffff !important; 
     border: 4px solid #111 !important; 
     border-radius: 16px !important; 
     color: #000 !important;
+    
+    /* THE FIX: Unified Desktop Sizing & Typography */
+    width: 220px !important;
+    padding: 14px !important;
+    font-size: 10px !important;
     font-family: 'Press Start 2P', monospace !important; 
+    font-variant-ligatures: none !important;
+    -webkit-font-variant-ligatures: none !important;
+    
     text-align: center !important;
     line-height: 1.8 !important;
     z-index: 99999 !important;
