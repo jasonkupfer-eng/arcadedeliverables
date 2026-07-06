@@ -685,14 +685,16 @@ html, body {
 /* Mobile Adjustment for the new Left Bubble */
 @media (max-width: 768px) {
     .pro-arcade-tooltip.tooltip-left {
-        width: 180px !important;
+        width: 160px !important; /* Slimmed down to dodge the center button */
         left: -15px !important;
-        bottom: 60px !important;
+        bottom: 55px !important; /* Snugs it right above the dropped heart */
         top: auto !important;
         margin-left: 0 !important;
     }
-    .pro-arcade-tooltip.tooltip-left::after { left: 35px !important; right: auto !important; bottom: -16px !important; }
-    .pro-arcade-tooltip.tooltip-left::before { left: 31px !important; right: auto !important; bottom: -21px !important; }
+    
+    /* Re-align the tails for the slimmer bubble */
+    .pro-arcade-tooltip.tooltip-left::after { left: 30px !important; right: auto !important; bottom: -16px !important; }
+    .pro-arcade-tooltip.tooltip-left::before { left: 26px !important; right: auto !important; bottom: -21px !important; }
 }
 
 .pro-arcade-tooltip {
