@@ -918,28 +918,50 @@ html, body {
     padding-bottom: 45px !important;
 }
 
-}
-
 /* =========================================
-   BULLETPROOF TOOLTIP RESCUE
+   THE MISSING SPEECH BUBBLE MASTER CLASS
    ========================================= */
 .pro-arcade-tooltip {
-    /* Forces the bubble to stay completely hidden and locked down on load */
+    position: absolute !important; /* CRITICAL: Pulls it out of the background flow */
+    background: #ffffff !important; 
+    border: 4px solid #111 !important; 
+    border-radius: 16px !important; 
+    color: #000 !important;
+    font-family: 'Press Start 2P', monospace !important; 
+    text-align: center !important;
+    line-height: 1.8 !important;
+    z-index: 99999 !important;
+    box-shadow: 8px 8px 0 rgba(0,0,0,0.8) !important; 
+    
+    /* Locked down and invisible on load */
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
     transform: translateY(20px) scale(0.8) !important;
     
-    /* Re-enables the smooth pop-up physics */
+    /* Pop-up physics */
     transition: opacity 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
                 transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
                 visibility 0.2s !important;
 }
 
 .pro-arcade-tooltip.visible {
-    /* The JavaScript trigger that forces it onto the screen */
     opacity: 1 !important;
     visibility: visible !important;
     transform: translateY(0) scale(1) !important;
     pointer-events: auto !important;
+}
+
+/* Default Right-Aligned Tails (For the Question Mark) */
+.pro-arcade-tooltip::after {
+    content: ''; position: absolute;
+    border-style: solid;
+    border-color: #ffffff transparent transparent transparent;
+    z-index: 2;
+}
+.pro-arcade-tooltip::before {
+    content: ''; position: absolute;
+    border-style: solid;
+    border-color: #111 transparent transparent transparent;
+    z-index: 1;
 }
