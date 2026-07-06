@@ -918,4 +918,26 @@ html, body {
     padding-bottom: 45px !important;
 }
 
+/* =========================================
+   BULLETPROOF TOOLTIP RESCUE
+   ========================================= */
+.pro-arcade-tooltip {
+    /* Forces the bubble to stay completely hidden and locked down on load */
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateY(20px) scale(0.8) !important;
+    
+    /* Re-enables the smooth pop-up physics */
+    transition: opacity 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                visibility 0.2s !important;
+}
+
+.pro-arcade-tooltip.visible {
+    /* The JavaScript trigger that forces it onto the screen */
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) scale(1) !important;
+    pointer-events: auto !important;
 }
