@@ -685,9 +685,9 @@ html, body {
 /* Mobile Adjustment for the new Left Bubble */
 @media (max-width: 768px) {
     .pro-arcade-tooltip.tooltip-left {
-        width: 160px !important; /* Slimmed down to dodge the center button */
+        width: 120px !important; /* Slimmed down to dodge the center button */
         left: -15px !important;
-        bottom: 55px !important; /* Snugs it right above the dropped heart */
+        bottom: 35px !important; /* Snugs it right above the dropped heart */
         top: auto !important;
         margin-left: 0 !important;
     }
