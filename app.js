@@ -225,15 +225,16 @@ document.addEventListener("DOMContentLoaded", () => {
             if(tooltip) tooltip.classList.remove('visible'); // Hide bubble when opened
         };
 
-        function resize() {
-        // Restored to 100% 1:1 resolution to prevent the text grid from zooming in
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
-        
-        cols = Math.floor(canvas.width / cellWidth);
-        rows = Math.floor(canvas.height / cellHeight) + 1;
-        initGrid();
-    }
+        // Close Drawer Function
+        const closeDrawer = (e) => {
+            if(e) e.preventDefault();
+            if(drawer) drawer.classList.remove('open');
+            
+            // Restore the word bubble after the drawer finishes sliding away
+            setTimeout(() => {
+                if(tooltip) tooltip.classList.add('visible');
+            }, 400);
+        };
 
         // Click Listeners
         if(helpWrapper) helpWrapper.addEventListener('click', openDrawer);
