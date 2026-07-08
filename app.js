@@ -49,9 +49,9 @@ if (canvas) {
     let scanlineY = 0; // Sweeping raster line tracker
 
     function resize() {
-        // Cut internal density in half for massive performance gains
-        canvas.width = Math.floor(canvas.offsetWidth / 2);
-        canvas.height = Math.floor(canvas.offsetHeight / 2);
+        // Restored to 100% 1:1 resolution to prevent the text grid from zooming in
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
         
         cols = Math.floor(canvas.width / cellWidth);
         rows = Math.floor(canvas.height / cellHeight) + 1;
