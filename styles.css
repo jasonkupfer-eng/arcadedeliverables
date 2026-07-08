@@ -973,3 +973,26 @@ html, body {
     border-color: #111 transparent transparent transparent;
     z-index: 1;
 }
+
+/* ========================================================
+   PERMANENT 8-BIT PERFORMANCE ARCHITECTURE (EXTRACTION SITE)
+   ======================================================== */
+
+/* 1. Force hardware acceleration & crisp 8-bit pixels */
+canvas {
+    image-rendering: pixelated !important;
+    transform: translateZ(0); /* Offloads rendering directly to the GPU */
+}
+
+/* 2. Kill the massive SVG Turbulence Filter (Absolute GPU Melter) */
+.static-overlay {
+    background-image: none !important; /* Destroys the heavy SVG math */
+    background-color: rgba(0, 0, 0, 0.4) !important; /* Clean, lightweight dimming */
+    mix-blend-mode: normal !important;
+}
+
+/* 3. Strip heavy CSS blur from the glitch canvas */
+#glitchCanvas {
+    filter: none !important;
+    opacity: 0.3 !important; /* Lowered opacity to look great without the blur */
+}

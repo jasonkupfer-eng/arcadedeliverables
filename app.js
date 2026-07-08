@@ -1,3 +1,13 @@
+// =========================================================================
+// NUCLEAR 8-BIT PERFORMANCE OVERRIDE
+// =========================================================================
+(function() {
+    // Universally disables all heavy canvas shadow/glow math
+    Object.defineProperty(CanvasRenderingContext2D.prototype, 'shadowBlur', {
+        set: function() {}, get: function() { return 0; }
+    });
+})();
+
 document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const missionName = urlParams.get('mission');
@@ -39,8 +49,10 @@ if (canvas) {
     let scanlineY = 0; // Sweeping raster line tracker
 
     function resize() {
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
+        // Cut internal density in half for massive performance gains
+        canvas.width = Math.floor(canvas.offsetWidth / 2);
+        canvas.height = Math.floor(canvas.offsetHeight / 2);
+        
         cols = Math.floor(canvas.width / cellWidth);
         rows = Math.floor(canvas.height / cellHeight) + 1;
         initGrid();
