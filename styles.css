@@ -1045,4 +1045,25 @@ canvas {
         max-width: 100% !important;
         height: auto !important;
     }
+
+/* 4. Grid Blowout Rescue (Stops long names from stretching the box) */
+    .mini-console .grid-bank {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        width: 100% !important;
+    }
+
+    .mini-console .mech-label {
+        word-break: break-word !important;
+        overflow-wrap: anywhere !important;
+        text-align: center !important;
+        width: 100% !important;
+    }
+
+    /* 5. Force all internal metal modules to obey the walls */
+    .mini-console .machine-module,
+    .mini-console .machinery-grid {
+        box-sizing: border-box !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
 }
