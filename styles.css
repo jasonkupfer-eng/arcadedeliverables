@@ -996,3 +996,53 @@ canvas {
     filter: none !important;
     opacity: 0.3 !important; /* Lowered opacity to look great without the blur */
 }
+
+/* ========================================================
+   MOBILE DRAWER CUT-OFF RESCUE
+   ======================================================== */
+/* Ensure the padding never adds invisible width to the drawer */
+.drawer-scroll-area,
+.heavy-machinery-panel {
+    box-sizing: border-box !important;
+}
+
+@media (max-width: 768px) {
+    /* 1. Tighten the padding to keep the console inside the glass */
+    .drawer-scroll-area {
+        padding: 10px !important;
+        overflow-x: hidden !important;
+        width: 100% !important;
+    }
+    
+    .heavy-machinery-panel.mini-console {
+        padding: 10px !important;
+        border-width: 4px !important;
+        width: 100% !important;
+    }
+
+    /* 2. Force the header to stack so the ABORT button doesn't stretch the box */
+    .mini-console .panel-header {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 12px !important;
+        padding: 12px !important;
+    }
+    
+    .mini-console .panel-header h2 {
+        width: 100% !important;
+        text-align: center !important;
+        font-size: 17px !important;
+        margin-bottom: 5px !important;
+    }
+    
+    .mini-console .panel-header .analog-toggle-btn {
+        width: 100% !important;
+    }
+
+    /* 3. Ensure the waveform canvases shrink on tiny screens */
+    .mini-console .gauge-container canvas {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+    }
+}
